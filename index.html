@@ -3,213 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ลงทะเบียนเรียน - PROMED MEDICAL LICENSE</title>
-    
+    <title>ลงทะเบียนเรียน - PROMED</title>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <style>
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: #f8fafc;
-        }
-        /* CI Color: PROMED Green */
+        body { font-family: 'Sarabun', sans-serif; background-color: #f8fafc; }
         .text-promed { color: #8DC63F; }
         .bg-promed { background-color: #8DC63F; }
-        .border-promed { border-color: #8DC63F; }
-        
-        .btn-promed {
-            background-color: #8DC63F;
-            transition: all 0.3s ease;
-        }
-        .btn-promed:hover {
-            background-color: #7ab332;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .btn-promed:disabled {
-            background-color: #a3d965;
-            cursor: not-allowed;
-        }
+        .btn-promed:hover { background-color: #7ab332; }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-
     <div class="max-w-md mx-auto bg-white min-h-screen shadow-xl relative pb-10">
-        
-        <div class="bg-white p-6 text-center border-b border-gray-100 sticky top-0 z-10 shadow-sm">
-            <div class="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-3 overflow-hidden border-2 border-promed">
-                <img src="https://placehold.co/200x200/8DC63F/ffffff?text=PROMED" alt="Logo" class="w-full h-full object-cover">
-            </div>
+        <div class="bg-white p-6 text-center border-b border-gray-100 sticky top-0 z-10">
+            <img src="https://via.placeholder.com/200x200.png?text=PROMED" alt="Logo" class="w-20 h-20 mx-auto rounded-full mb-2 border-2 border-green-400">
             <h1 class="text-xl font-bold text-gray-800">ลงทะเบียนเรียน</h1>
             <p class="text-promed font-medium text-sm">PROMED MEDICAL LICENSE</p>
         </div>
 
         <div class="px-6 pt-6">
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg shadow-sm">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-yellow-700">
-                            <span class="font-bold">จำกัด 5 ที่นั่ง/รอบ</span> เพื่อการวางแผนการสอนรายบุคคล กรุณากรอกข้อมูลเพื่อล็อคตาราง
-                        </p>
-                    </div>
-                </div>
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                <p class="text-sm text-yellow-700 font-bold">⚠️ จำกัด 5 ที่นั่ง/รอบ เพื่อการวางแผนรายบุคคล</p>
             </div>
         </div>
 
-        <form id="regisForm" class="p-6 space-y-5">
+        <form id="regisForm" class="p-6 space-y-4">
             <input type="hidden" id="userId" name="userId">
             
-            <div class="space-y-4">
-                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-wider border-b pb-1">ข้อมูลผู้เรียน</h3>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-นามสกุล (ผู้เรียน) <span class="text-red-500">*</span></label>
-                    <input type="text" id="fullname" required class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border" placeholder="ระบุชื่อ-นามสกุลจริง">
-                </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล (ผู้เรียน) <span class="text-red-500">*</span></label>
+                <input type="text" id="fullname" required class="w-full border p-2 rounded-lg mt-1 focus:ring-2 focus:ring-green-400 focus:outline-none">
+            </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อเล่น <span class="text-red-500">*</span></label>
-                        <input type="text" id="nickname" required class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">อายุ</label>
-                        <input type="number" id="age" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border">
-                    </div>
-                </div>
-
+            <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">ระดับชั้น / มหาวิทยาลัย <span class="text-red-500">*</span></label>
-                    <input type="text" id="education" required class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border" placeholder="เช่น แพทย์ ปี 4 ม.มหิดล">
+                    <label class="block text-sm font-medium text-gray-700">ชื่อเล่น</label>
+                    <input type="text" id="nickname" required class="w-full border p-2 rounded-lg mt-1">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">อายุ</label>
+                    <input type="number" id="age" class="w-full border p-2 rounded-lg mt-1">
                 </div>
             </div>
 
-            <div class="space-y-4 pt-2">
-                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-wider border-b pb-1">ช่องทางติดต่อ</h3>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
-                    <input type="email" id="email" required class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border">
-                </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">ระดับชั้น / มหาวิทยาลัย <span class="text-red-500">*</span></label>
+                <input type="text" id="education" required class="w-full border p-2 rounded-lg mt-1" placeholder="เช่น แพทย์ ปี 4 ม.มหิดล">
+            </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Line ID <span class="text-red-500">*</span></label>
-                    <input type="text" id="lineId" required class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border">
-                </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Email <span class="text-red-500">*</span></label>
+                <input type="email" id="email" required class="w-full border p-2 rounded-lg mt-1">
+            </div>
 
-                <div class="grid grid-cols-1 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์ (ผู้เรียน) <span class="text-red-500">*</span></label>
-                        <input type="tel" id="phoneStudent" required class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border" placeholder="0xx-xxx-xxxx">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์ (ผู้ปกครอง)</label>
-                        <input type="tel" id="phoneParent" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border" placeholder="0xx-xxx-xxxx">
-                    </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Line ID <span class="text-red-500">*</span></label>
+                <input type="text" id="lineId" required class="w-full border p-2 rounded-lg mt-1">
+            </div>
+
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์ (ผู้เรียน) <span class="text-red-500">*</span></label>
+                    <input type="tel" id="phoneStudent" required class="w-full border p-2 rounded-lg mt-1">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์ (ผู้ปกครอง)</label>
+                    <input type="tel" id="phoneParent" class="w-full border p-2 rounded-lg mt-1">
                 </div>
             </div>
 
-            <div class="space-y-4 pt-2">
-                <h3 class="text-gray-500 text-xs font-bold uppercase tracking-wider border-b pb-1">รายละเอียดการเรียน</h3>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">รายวิชาที่ต้องการลง <span class="text-red-500">*</span></label>
-                    <select id="subject" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border bg-white">
-                        <option value="NL1">NL1 (Comprehensive)</option>
-                        <option value="NL2">NL2 (Clinical Science)</option>
-                        <option value="NL3_MEQ">NL3 (MEQ)</option>
-                        <option value="NL3_OSCE">NL3 (OSCE)</option>
-                        <option value="Anatomy">Anatomy (กายวิภาคศาสตร์)</option>
-                        <option value="Dental">ใบประกอบวิชาชีพทันตะ</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">จำนวนชั่วโมงที่ต้องการ</label>
-                    <input type="number" id="hours" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border" placeholder="เช่น 20">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">วันเวลาที่สะดวกเรียน</label>
-                    <textarea id="preferredTime" rows="3" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-promed focus:ring focus:ring-promed focus:ring-opacity-50 p-3 border" placeholder="เช่น จันทร์-ศุกร์ หลัง 18.00 น. หรือ เสาร์-อาทิตย์ ทั้งวัน"></textarea>
-                </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">รายวิชาที่ต้องการลง <span class="text-red-500">*</span></label>
+                <select id="subject" class="w-full border p-2 rounded-lg mt-1 bg-white">
+                    <option value="NL1">NL1 (Comprehensive)</option>
+                    <option value="NL2">NL2 (Clinical Science)</option>
+                    <option value="NL3_MEQ">NL3 (MEQ)</option>
+                    <option value="NL3_OSCE">NL3 (OSCE)</option>
+                    <option value="Anatomy">Anatomy</option>
+                    <option value="Dental">ทันตกรรม</option>
+                </select>
             </div>
 
-            <div class="pt-4 pb-8">
-                <button type="submit" id="submitBtn" class="w-full btn-promed text-white font-bold py-4 px-4 rounded-xl shadow-lg flex justify-center items-center gap-2">
-                    <span>ยืนยันการลงทะเบียน</span>
-                    <svg id="loadingIcon" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">จำนวนชั่วโมง / เวลาที่สะดวก</label>
+                <textarea id="preferredTime" rows="2" class="w-full border p-2 rounded-lg mt-1" placeholder="เช่น 20 ชม. สะดวก จ-ศ หลัง 18.00"></textarea>
+                <input type="hidden" id="hours" value="-"> </div>
+
+            <div class="pt-4">
+                <button type="submit" id="submitBtn" class="w-full bg-promed text-white font-bold py-3 rounded-xl shadow-lg hover:bg-green-600 transition duration-300">
+                    ยืนยันการลงทะเบียน
                 </button>
-                <p class="text-center text-xs text-gray-400 mt-4">PROMED MEDICAL LICENSE SYSTEM</p>
             </div>
         </form>
     </div>
 
     <script>
-        // ==========================================
-        // ⚙️ CONFIGURATION (แก้ไขตรงนี้)
-        // ==========================================
-        const LIFF_ID = '2009152707-JaNVAeT8'; // ใส่ LIFF ID ที่ได้จาก LINE Developers
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxjyJd8Z1QByXfNslZm8naWuqluWD2hDI9_BFrICNc3DD8eKdN_NLnS_0B8h5rarstW/exec'; // ใส่ URL ของ Google Apps Script (Web App)
-        // ==========================================
+        // -----------------------------------------------------------------
+        // ⚠️ แก้ไขข้อมูลตรงนี้ (สำคัญ!)
+        // -----------------------------------------------------------------
+        const LIFF_ID = '2009152707-JaNVAeT8'; // LIFF ID ของคุณ
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbzGgEIO6KHM-N4r0MTFc-zXUQry131dT7T6DXnyergutsAGuilYbAM3psdG8YbcogOK/exec'; 
+        // -----------------------------------------------------------------
 
-        // 1. Initialize LIFF
         async function main() {
-            try {
-                await liff.init({ liffId: LIFF_ID });
-                if (liff.isLoggedIn()) {
-                    getUserProfile();
-                } else {
-                    liff.login();
-                }
-            } catch (err) {
-                console.error("LIFF Init Error:", err);
+            await liff.init({ liffId: LIFF_ID });
+            if (liff.isLoggedIn()) {
+                const profile = await liff.getProfile();
+                document.getElementById('userId').value = profile.userId;
+                document.getElementById('lineId').value = profile.displayName;
+            } else {
+                liff.login();
             }
         }
         main();
 
-        // 2. Get User Profile & Auto-fill
-        async function getUserProfile() {
-            try {
-                const profile = await liff.getProfile();
-                document.getElementById('userId').value = profile.userId;
-                
-                // แถม: ลองเอาชื่อไลน์มาใส่ในช่อง Line ID ให้ (User แก้ได้)
-                if(profile.displayName) {
-                    document.getElementById('lineId').value = profile.displayName;
-                }
-            } catch (err) {
-                console.error("Get Profile Error:", err);
-            }
-        }
-
-        // 3. Handle Form Submit
         document.getElementById('regisForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // UI Loading State
             const btn = document.getElementById('submitBtn');
-            const icon = document.getElementById('loadingIcon');
-            const btnText = btn.querySelector('span');
-            
+            btn.innerText = 'กำลังบันทึกข้อมูล...';
             btn.disabled = true;
-            btnText.innerText = 'กำลังบันทึกข้อมูล...';
-            icon.classList.remove('hidden');
 
-            // Collect Data
             const formData = {
                 userId: document.getElementById('userId').value,
                 fullname: document.getElementById('fullname').value,
@@ -221,56 +136,34 @@
                 phoneStudent: document.getElementById('phoneStudent').value,
                 phoneParent: document.getElementById('phoneParent').value,
                 subject: document.getElementById('subject').value,
-                hours: document.getElementById('hours').value,
+                hours: "-",
                 preferredTime: document.getElementById('preferredTime').value
             };
 
-            // Send to GAS
             try {
-                // ใช้ fetch mode: 'no-cors' ไม่ได้เพราะต้องการ response แต่ GAS redirect
-                // ดังนั้นเราใช้ method POST แบบปกติ และรอ response JSON
                 const response = await fetch(GAS_URL, {
                     method: 'POST',
                     body: JSON.stringify(formData)
                 });
-
-                if (response.ok) {
-                    // Success Popup
-                    Swal.fire({
-                        title: 'ลงทะเบียนสำเร็จ!',
-                        text: 'ระบบกำลังสร้างใบเสนอราคาและส่งให้คุณทางไลน์',
-                        icon: 'success',
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: '#8DC63F'
-                    }).then(() => {
-                        liff.closeWindow();
-                    });
-                } else {
-                    throw new Error("Server response not ok");
-                }
-
-            } catch (err) {
-                console.error(err);
-                // Fallback: บางที Browser บล็อก response จาก GAS แต่จริงๆ ข้อมูลเข้าแล้ว
-                // เราจะอนุมานว่าถ้าไม่มี Error ร้ายแรงคือสำเร็จ หรือแจ้งเตือนให้เช็ค
+                
+                // ไม่ว่า GAS จะตอบอะไรกลับมา (เนื่องจาก CORS บางทีอาจไม่เห็น response) 
+                // ให้ถือว่าสำเร็จถ้าไม่มี Error ร้ายแรง
                 Swal.fire({
-                    title: 'บันทึกข้อมูลเรียบร้อย',
-                    text: 'กรุณาตรวจสอบใบเสนอราคาในแชทไลน์',
+                    title: 'ลงทะเบียนสำเร็จ!',
+                    text: 'ระบบกำลังส่งใบเสนอราคาให้ทางไลน์ครับ',
                     icon: 'success',
-                    confirmButtonText: 'ปิดหน้าต่าง',
                     confirmButtonColor: '#8DC63F'
                 }).then(() => {
                     liff.closeWindow();
                 });
-            } finally {
-                // Reset Loading State (เผื่อกรณีไม่ปิดหน้าต่าง)
+
+            } catch (err) {
+                console.error(err);
+                Swal.fire('เกิดข้อผิดพลาด', 'กรุณาลองใหม่อีกครั้ง', 'error');
                 btn.disabled = false;
-                btnText.innerText = 'ยืนยันการลงทะเบียน';
-                icon.classList.add('hidden');
+                btn.innerText = 'ยืนยันการลงทะเบียน';
             }
         });
     </script>
 </body>
-
 </html>
-
