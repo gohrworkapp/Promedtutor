@@ -59,13 +59,39 @@
             <h1 class="text-lg font-bold text-gray-800">เลือกคอร์สเรียนที่ใช่สำหรับคุณ</h1>
         </div>
 
-        <div class="flex border-b bg-gray-50 sticky top-[90px] z-10">
-            <button onclick="switchTab('NL1')" id="tab-NL1" class="flex-1 py-4 text-center text-sm font-semibold tab-active bg-white">NL1</button>
-            <button onclick="switchTab('NL2')" id="tab-NL2" class="flex-1 py-4 text-center text-sm font-semibold tab-inactive hover:bg-white transition">NL2</button>
-            <button onclick="switchTab('MEQ')" id="tab-MEQ" class="flex-1 py-4 text-center text-sm font-semibold tab-inactive hover:bg-white transition">MEQ</button>
+        <div class="flex border-b bg-gray-50 sticky top-[90px] z-10 overflow-x-auto">
+            <button onclick="switchTab('Preclinic')" id="tab-Preclinic" class="flex-1 min-w-[80px] py-4 text-center text-sm font-semibold tab-active bg-white whitespace-nowrap">Pre-Clinic</button>
+            <button onclick="switchTab('NL1')" id="tab-NL1" class="flex-1 min-w-[60px] py-4 text-center text-sm font-semibold tab-inactive hover:bg-white transition">NL1</button>
+            <button onclick="switchTab('NL2')" id="tab-NL2" class="flex-1 min-w-[60px] py-4 text-center text-sm font-semibold tab-inactive hover:bg-white transition">NL2</button>
+            <button onclick="switchTab('MEQ')" id="tab-MEQ" class="flex-1 min-w-[60px] py-4 text-center text-sm font-semibold tab-inactive hover:bg-white transition">MEQ</button>
         </div>
 
-        <div id="content-NL1" class="p-4 space-y-4 animate-fade-in">
+        <div id="content-Preclinic" class="p-4 space-y-4 animate-fade-in">
+            <div class="bg-teal-50 p-3 rounded-lg text-sm text-teal-800 mb-2 border border-teal-100">
+                🧬 <b>Pre-Clinic (แพทย์ปี 1-2)</b> ปูพื้นฐานแน่น เชื่อมโยงความรู้สู่ชั้นคลินิก แก้ปัญหา "สำลักข้อมูล" (Information Overload)
+            </div>
+            <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white border-teal-200 ring-1 ring-teal-50">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800">คอร์ส 30 ชม. (System)</h3>
+                        <p class="text-sm text-gray-600 mt-1">เลือกเนื้อหาได้เอง 1-3 Systems</p>
+                        <div class="mt-3 space-y-1">
+                            <p class="text-xs text-gray-500 flex items-center gap-1">✅ <b>Concept Clarifier:</b> สอนให้คิดแบบเชื่อมโยง</p>
+                            <p class="text-xs text-gray-500 flex items-center gap-1">✅ <b>1:1 Active Recall:</b> กระตุ้นให้ดึงข้อมูลมาใช้ (แม่นกว่าอ่านเอง 10 รอบ)</p>
+                            <p class="text-xs text-gray-500 flex items-center gap-1">✅ <b>Clinical Reasoning:</b> ฝึกกระบวนการคิดแบบหมอ</p>
+                        </div>
+                    </div>
+                    <div class="text-right min-w-[80px]">
+                        <div class="text-xl font-bold text-promed">99,900฿</div>
+                    </div>
+                </div>
+                <div class="mt-3 text-xs text-center bg-gray-100 py-1 rounded text-gray-500">
+                    เป้าหมาย: เข้าใจครบพร้อมทำคะแนน + ทำโจทย์ได้จริง
+                </div>
+            </div>
+        </div>
+
+        <div id="content-NL1" class="hidden p-4 space-y-4 animate-fade-in">
             <div class="bg-blue-50 p-3 rounded-lg text-sm text-blue-800 mb-2">
                 🎓 <b>NL1 (ศรว. ขั้นที่ 1)</b> เน้นเนื้อหาออกสอบจริง วิเคราะห์แนวโน้มข้อสอบอย่างเป็นระบบ
             </div>
@@ -97,7 +123,7 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="font-bold text-lg text-gray-800">🔥 คอร์ส 50 ชม.</h3>
-                        <p class="text-sm text-gray-600 mt-1">ปรับพื้นฐานบางบท + ตะลุยโจทย์ครบทุกบท + จับเวลา</p>
+                        <p class="text-sm text-gray-600 mt-1">ปรับพื้นฐานบางบท + ตะลุยโจทย์ครบทุกบท</p>
                     </div>
                     <div class="text-right">
                         <div class="text-xl font-bold text-red-500">159,900฿</div>
@@ -109,7 +135,7 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="font-bold text-lg text-gray-800">👑 70 ชม. รับรองผล</h3>
-                        <p class="text-sm text-gray-600 mt-1">SUPER SPECIAL ครบทุกบท + เทคนิคจับจุดข้อสอบ (การันตีผล 99.99%)</p>
+                        <p class="text-sm text-gray-600 mt-1">SUPER SPECIAL ครบทุกบท + เทคนิคจับจุด</p>
                     </div>
                     <div class="text-right">
                         <div class="text-xl font-bold text-red-600">199,900฿</div>
@@ -127,7 +153,7 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="font-bold text-lg text-gray-800">คอร์ส 30 ชม.</h3>
-                        <p class="text-sm text-gray-600 mt-1">ตะลุยโจทย์ + เทคนิคการตัดช้อย (พื้นฐานปานกลาง-ดี)</p>
+                        <p class="text-sm text-gray-600 mt-1">ตะลุยโจทย์ + เทคนิคการตัดช้อย</p>
                     </div>
                     <div class="text-right">
                         <div class="text-xl font-bold text-promed">99,900฿</div>
@@ -139,7 +165,7 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="font-bold text-lg text-gray-800">🔥 50 ชม. ยอดนิยม</h3>
-                        <p class="text-sm text-gray-600 mt-1">เนื้อหาเข้มข้น + เจาะลึกการตัดช้อย (สำหรับผู้สอบ 2 รอบขึ้นไป)</p>
+                        <p class="text-sm text-gray-600 mt-1">เนื้อหาเข้มข้น + เจาะลึกการตัดช้อย</p>
                     </div>
                     <div class="text-right">
                         <div class="text-xl font-bold text-red-500">159,900฿</div>
@@ -151,7 +177,7 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="font-bold text-lg text-gray-800">👑 70 ชม. รับรองผล</h3>
-                        <p class="text-sm text-gray-600 mt-1">Special Course ปูพื้นฐานแน่น + ตะลุยโจทย์ครบทุกเรื่อง</p>
+                        <p class="text-sm text-gray-600 mt-1">Special Course ปูพื้นฐานแน่น + ตะลุยโจทย์</p>
                     </div>
                     <div class="text-right">
                         <div class="text-xl font-bold text-red-600">199,900฿</div>
@@ -180,7 +206,7 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="font-bold text-lg text-gray-800">🔥 20 ชม. ยอดนิยม</h3>
-                        <p class="text-sm text-gray-600 mt-1">เก็งข้อสอบทุกบท + เลือกเนื้อหา 2 บท + สอนเขียน</p>
+                        <p class="text-sm text-gray-600 mt-1">เก็งทุกบท + เลือกเนื้อหา 2 บท + สอนเขียน</p>
                     </div>
                     <div class="text-right">
                         <div class="text-xl font-bold text-red-500">109,900฿</div>
@@ -191,7 +217,7 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="font-bold text-lg text-gray-800">คอร์ส 30 ชม.</h3>
-                        <p class="text-sm text-gray-600 mt-1">เก็งข้อสอบทุกบท + เลือกเนื้อหา 3 บท + สอนเขียน</p>
+                        <p class="text-sm text-gray-600 mt-1">เก็งทุกบท + เลือกเนื้อหา 3 บท + สอนเขียน</p>
                     </div>
                     <div class="text-right">
                         <div class="text-xl font-bold text-promed">129,900฿</div>
@@ -257,6 +283,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700">รายวิชาที่ต้องการลง <span class="text-red-500">*</span></label>
                     <select id="subject" class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 bg-white focus:ring-2 focus:ring-[#8DC63F]">
+                        <option value="Preclinic">Pre-Clinic (แพทย์ปี 1-2)</option>
                         <option value="NL1">NL1 (Comprehensive)</option>
                         <option value="NL2">NL2 (Clinical Science)</option>
                         <option value="NL3_MEQ">NL3 (MEQ)</option>
@@ -312,7 +339,7 @@
 
         // 2. Tab Switching Logic
         window.switchTab = function(tabName) {
-            ['NL1', 'NL2', 'MEQ'].forEach(t => {
+            ['Preclinic', 'NL1', 'NL2', 'MEQ'].forEach(t => {
                 document.getElementById(`content-${t}`).classList.add('hidden');
                 document.getElementById(`tab-${t}`).classList.remove('tab-active', 'bg-white');
                 document.getElementById(`tab-${t}`).classList.add('tab-inactive');
@@ -387,4 +414,3 @@
     </script>
 </body>
 </html>
-
