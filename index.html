@@ -146,7 +146,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Line ID <span class="text-red-500">*</span></label>
-                    <input type="text" id="lineId" required class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]" readonly>
+                    <input type="text" id="lineId" required class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์ (ผู้เรียน) <span class="text-red-500">*</span></label>
@@ -194,7 +194,7 @@
         const LIFF_ID = '2009152707-JaNVAeT8'; 
         
         // 2. 🔴 สำคัญมาก: วาง Web App URL อันใหม่ล่าสุดตรงนี้
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxxGmRtw1b7aEdGtcs4J3pYMZLTA2GYuFthIrn0prHKe4yKh3J6T3jr7nIzUyY6CFs/exec'; // <--- แทนที่ด้วย URL ของคุณ
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxxGmRtw1b7aEdGtcs4J3pYMZLTA2GYuFthIrn0prHKe4yKh3J6T3jr7nIzUyY6CFs/exec'; 
         
         // 3. Logo ID
         const LOGO_FILE_ID = '1F3_t5Tk8WfdHu1domWwrEg6JTShR5dmp'; 
@@ -216,7 +216,7 @@
                 if (liff.isLoggedIn()) {
                     const profile = await liff.getProfile();
                     document.getElementById('userId').value = profile.userId;
-                    // Auto-fill ชื่อไลน์ (อ่านอย่างเดียว)
+                    // Auto-fill ชื่อไลน์ (คราวนี้แก้ได้แล้วเพราะเอา readonly ออก)
                     document.getElementById('lineId').value = profile.displayName;
                 } else { 
                     liff.login(); 
@@ -442,4 +442,3 @@
     </script>
 </body>
 </html>
-
