@@ -3,28 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>คอร์สเรียน - PROMED MEDICAL LICENSE</title>
+    <title>ลงทะเบียนเรียน - PROMED MEDICAL LICENSE</title>
+    
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         body { font-family: 'Sarabun', sans-serif; background-color: #f0f2f5; }
         .text-promed { color: #8DC63F; }
         .bg-promed { background-color: #8DC63F; }
-        .bg-promed-dark { background-color: #6a9c29; }
         .btn-promed:hover { background-color: #7ab332; }
-        .tab-active { border-bottom: 3px solid #8DC63F; color: #8DC63F; font-weight: bold; }
+        
+        /* Tab Styles */
+        .tab-active { border-bottom: 3px solid #8DC63F; color: #8DC63F; font-weight: bold; background-color: white; }
         .tab-inactive { color: #888; }
+        
+        /* Price Strike */
         .price-strike { text-decoration: line-through; color: #999; font-size: 0.8em; }
-        .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #8DC63F; width: 20px; height: 20px; animation: spin 1s linear infinite; }
+        
+        /* Loading Spinner */
+        .loader { 
+            border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #8DC63F; 
+            width: 20px; height: 20px; animation: spin 1s linear infinite; 
+        }
+        .main-loader {
+            border: 4px solid #f3f3f3; border-radius: 50%; border-top: 4px solid #8DC63F; 
+            width: 40px; height: 40px; animation: spin 1s linear infinite; 
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Smooth Fade In */
+        .animate-fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Hide scrollbar for tabs */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen relative">
 
     <div id="pdpaModal" class="fixed inset-0 bg-gray-900 bg-opacity-95 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full overflow-hidden">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full overflow-hidden animate-fade-in">
             <div class="p-5 border-b border-gray-100">
                 <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-promed" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,11 +58,11 @@
             <div class="p-5">
                 <div class="text-sm text-gray-600 mb-4 h-32 overflow-y-auto border rounded-lg p-3 bg-gray-50 leading-relaxed">
                     <p class="font-bold mb-1">นโยบายความเป็นส่วนตัว (PDPA)</p>
-                    <p>PROMED ขอเก็บรวบรวมข้อมูลของท่าน (ชื่อ, เบอร์โทร, ไลน์ไอดี ฯลฯ) เพื่อใช้ในการสมัครเรียน จัดทำเอกสาร และติดต่อประสานงานเท่านั้น ข้อมูลจะถูกเก็บรักษาไว้อย่างปลอดภัย</p>
+                    <p>PROMED ขอเก็บรวบรวมข้อมูลของท่าน (ชื่อ, เบอร์โทร, ไลน์ไอดี ฯลฯ) เพื่อใช้ในการสมัครเรียน จัดทำเอกสาร และติดต่อประสานงานเท่านั้น ข้อมูลจะถูกเก็บรักษาไว้อย่างปลอดภัยและไม่เปิดเผยต่อบุคคลภายนอก</p>
                 </div>
                 <label class="flex items-start space-x-3 cursor-pointer">
                     <input type="checkbox" id="pdpaCheckbox" class="mt-1 w-5 h-5 text-green-600 rounded border-gray-300 focus:ring-green-500">
-                    <span class="text-sm text-gray-700 select-none">ข้าพเจ้ายอมรับ <b>นโยบายความเป็นส่วนตัว</b></span>
+                    <span class="text-sm text-gray-700 select-none">ข้าพเจ้ายอมรับ <b class="text-gray-900">นโยบายความเป็นส่วนตัว</b></span>
                 </label>
             </div>
             <div class="p-5 border-t border-gray-100 bg-gray-50">
@@ -51,7 +73,7 @@
         </div>
     </div>
 
-    <div id="courseInfoPage" class="hidden max-w-md mx-auto bg-white min-h-screen shadow-xl pb-20">
+    <div id="courseInfoPage" class="hidden max-w-md mx-auto bg-white min-h-screen shadow-xl pb-24">
         <div class="bg-white p-4 text-center border-b shadow-sm sticky top-0 z-20">
              <div class="h-16 w-full flex items-center justify-center mb-1">
                 <img id="logoImgInfo" src="" alt="PROMED Logo" class="h-full w-auto object-contain">
@@ -59,193 +81,24 @@
             <h1 class="text-lg font-bold text-gray-800">เลือกคอร์สเรียนที่ใช่สำหรับคุณ</h1>
         </div>
 
-        <div class="flex border-b bg-gray-50 sticky top-[90px] z-10 overflow-x-auto">
-            <button onclick="switchTab('Preclinic')" id="tab-Preclinic" class="flex-1 min-w-[80px] py-4 text-center text-sm font-semibold tab-active bg-white whitespace-nowrap">Pre-Clinic</button>
-            <button onclick="switchTab('NL1')" id="tab-NL1" class="flex-1 min-w-[60px] py-4 text-center text-sm font-semibold tab-inactive hover:bg-white transition">NL1</button>
-            <button onclick="switchTab('NL2')" id="tab-NL2" class="flex-1 min-w-[60px] py-4 text-center text-sm font-semibold tab-inactive hover:bg-white transition">NL2</button>
-            <button onclick="switchTab('MEQ')" id="tab-MEQ" class="flex-1 min-w-[60px] py-4 text-center text-sm font-semibold tab-inactive hover:bg-white transition">MEQ</button>
-        </div>
+        <div id="tabsContainer" class="flex border-b bg-gray-50 sticky top-[90px] z-10 overflow-x-auto no-scrollbar shadow-sm">
+            </div>
 
-        <div id="content-Preclinic" class="p-4 space-y-4 animate-fade-in">
-            <div class="bg-teal-50 p-3 rounded-lg text-sm text-teal-800 mb-2 border border-teal-100">
-                🧬 <b>Pre-Clinic (แพทย์ปี 1-2)</b> ปูพื้นฐานแน่น เชื่อมโยงความรู้สู่ชั้นคลินิก แก้ปัญหา "สำลักข้อมูล" (Information Overload)
-            </div>
-            <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white border-teal-200 ring-1 ring-teal-50">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">คอร์ส 30 ชม. (System)</h3>
-                        <p class="text-sm text-gray-600 mt-1">เลือกเนื้อหาได้เอง 1-3 Systems</p>
-                        <div class="mt-3 space-y-1">
-                            <p class="text-xs text-gray-500 flex items-center gap-1">✅ <b>Concept Clarifier:</b> สอนให้คิดแบบเชื่อมโยง</p>
-                            <p class="text-xs text-gray-500 flex items-center gap-1">✅ <b>1:1 Active Recall:</b> กระตุ้นให้ดึงข้อมูลมาใช้ (แม่นกว่าอ่านเอง 10 รอบ)</p>
-                            <p class="text-xs text-gray-500 flex items-center gap-1">✅ <b>Clinical Reasoning:</b> ฝึกกระบวนการคิดแบบหมอ</p>
-                        </div>
-                    </div>
-                    <div class="text-right min-w-[80px]">
-                        <div class="text-xl font-bold text-promed">99,900฿</div>
-                    </div>
-                </div>
-                <div class="mt-3 text-xs text-center bg-gray-100 py-1 rounded text-gray-500">
-                    เป้าหมาย: เข้าใจครบพร้อมทำคะแนน + ทำโจทย์ได้จริง
-                </div>
-            </div>
-        </div>
-
-        <div id="content-NL1" class="hidden p-4 space-y-4 animate-fade-in">
-            <div class="bg-blue-50 p-3 rounded-lg text-sm text-blue-800 mb-2">
-                🎓 <b>NL1 (ศรว. ขั้นที่ 1)</b> เน้นเนื้อหาออกสอบจริง วิเคราะห์แนวโน้มข้อสอบอย่างเป็นระบบ
-            </div>
-            <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">คอร์ส 20 ชม. <span class="text-xs font-normal bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">พื้นฐานดี</span></h3>
-                        <p class="text-sm text-gray-600 mt-1">โปรแกรมเร่งรัด ตะลุยโจทย์บางบท</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-promed">69,900฿</div>
-                        <div class="price-strike">99,000฿</div>
-                    </div>
-                </div>
-            </div>
-            <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">คอร์ส 30 ชม. <span class="text-xs font-normal bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">ปานกลาง-ดี</span></h3>
-                        <p class="text-sm text-gray-600 mt-1">ตะลุยโจทย์ 5 บท + เทคนิคตัดช้อย</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-promed">99,900฿</div>
-                        <div class="price-strike">159,900฿</div>
-                    </div>
-                </div>
-            </div>
-             <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white border-orange-200 ring-1 ring-orange-100">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">🔥 คอร์ส 50 ชม.</h3>
-                        <p class="text-sm text-gray-600 mt-1">ปรับพื้นฐานบางบท + ตะลุยโจทย์ครบทุกบท</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-red-500">159,900฿</div>
-                        <div class="price-strike">199,000฿</div>
-                    </div>
-                </div>
-            </div>
-             <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-gradient-to-r from-yellow-50 to-white border-yellow-300">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">👑 70 ชม. รับรองผล</h3>
-                        <p class="text-sm text-gray-600 mt-1">SUPER SPECIAL ครบทุกบท + เทคนิคจับจุด</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-red-600">199,900฿</div>
-                        <div class="price-strike">259,900฿</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="content-NL2" class="hidden p-4 space-y-4 animate-fade-in">
-             <div class="bg-green-50 p-3 rounded-lg text-sm text-green-800 mb-2">
-                🏥 <b>NL2 (Clinical Science)</b> เน้นภาวะปกติ, ผิดปกติ และการวินิจฉัยรักษา
-            </div>
-            <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">คอร์ส 30 ชม.</h3>
-                        <p class="text-sm text-gray-600 mt-1">ตะลุยโจทย์ + เทคนิคการตัดช้อย</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-promed">99,900฿</div>
-                        <div class="price-strike">159,900฿</div>
-                    </div>
-                </div>
-            </div>
-             <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white border-orange-200 ring-1 ring-orange-100">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">🔥 50 ชม. ยอดนิยม</h3>
-                        <p class="text-sm text-gray-600 mt-1">เนื้อหาเข้มข้น + เจาะลึกการตัดช้อย</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-red-500">159,900฿</div>
-                        <div class="price-strike">199,000฿</div>
-                    </div>
-                </div>
-            </div>
-             <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-gradient-to-r from-yellow-50 to-white border-yellow-300">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">👑 70 ชม. รับรองผล</h3>
-                        <p class="text-sm text-gray-600 mt-1">Special Course ปูพื้นฐานแน่น + ตะลุยโจทย์</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-red-600">199,900฿</div>
-                        <div class="price-strike">259,900฿</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="content-MEQ" class="hidden p-4 space-y-4 animate-fade-in">
-             <div class="bg-purple-50 p-3 rounded-lg text-sm text-purple-800 mb-2">
-                ✍️ <b>MEQ (Modified Essay Question)</b> แก้ปัญหาเขียนไม่ตรงประเด็น คิดไม่เป็นระบบ
-            </div>
-            <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">คอร์ส 15 ชม.</h3>
-                        <p class="text-sm text-gray-600 mt-1">เก็งข้อสอบทุกบท + สอนการเขียนอย่างเดียว</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-promed">99,900฿</div>
-                    </div>
-                </div>
-            </div>
-             <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white border-orange-200 ring-1 ring-orange-100">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">🔥 20 ชม. ยอดนิยม</h3>
-                        <p class="text-sm text-gray-600 mt-1">เก็งทุกบท + เลือกเนื้อหา 2 บท + สอนเขียน</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-red-500">109,900฿</div>
-                    </div>
-                </div>
-            </div>
-             <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-white">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">คอร์ส 30 ชม.</h3>
-                        <p class="text-sm text-gray-600 mt-1">เก็งทุกบท + เลือกเนื้อหา 3 บท + สอนเขียน</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-promed">129,900฿</div>
-                    </div>
-                </div>
-            </div>
-             <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition bg-gradient-to-r from-yellow-50 to-white border-yellow-300">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-800">👑 40 ชม. รับรองผล</h3>
-                        <p class="text-sm text-gray-600 mt-1">ครบทุกบท (Ob/Gyn, SUR, MED, PED) + สอนเขียน</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-red-600">159,900฿</div>
-                    </div>
-                </div>
+        <div id="contentContainer" class="p-4 space-y-4 min-h-[50vh]">
+            <div class="flex flex-col items-center justify-center py-20 space-y-3">
+                <div class="main-loader"></div>
+                <p class="text-gray-400 text-sm">กำลังโหลดข้อมูลคอร์สเรียน...</p>
             </div>
         </div>
         
-        <div class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t shadow-lg max-w-md mx-auto z-30">
-            <button id="goToRegisterBtn" class="w-full bg-promed text-white font-bold py-3 rounded-xl shadow-lg hover:bg-green-600 transition duration-300 flex justify-center items-center gap-2">
+        <div class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] max-w-md mx-auto z-30">
+            <button id="goToRegisterBtn" class="w-full bg-promed text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-[#7ab332] transition duration-300 flex justify-center items-center gap-2 text-lg">
                 <span>📝 สมัครเรียนทันที</span>
             </button>
         </div>
     </div>
 
-
-    <div id="regisFormPage" class="hidden max-w-md mx-auto bg-white min-h-screen shadow-xl relative">
+    <div id="regisFormPage" class="hidden max-w-md mx-auto bg-white min-h-screen shadow-xl relative pb-10">
         <div class="bg-white p-6 text-center border-b border-gray-100 sticky top-0 z-20 shadow-sm">
             <div class="h-16 w-full flex items-center justify-center mb-1">
                 <img id="logoImgForm" src="" alt="PROMED Logo" class="h-full w-auto object-contain">
@@ -255,48 +108,78 @@
         </div>
 
         <div class="px-6 pt-6">
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg shadow-sm">
                 <p class="text-sm text-yellow-700">⚠️ <b>รับเพียง 5 ที่นั่ง/รอบ</b> เพื่อการวางแผนรายบุคคล กรุณากรอกข้อมูลเพื่อล็อคตาราง</p>
             </div>
         </div>
 
-        <form id="regisForm" class="p-6 space-y-4">
+        <form id="regisForm" class="p-6 space-y-5">
             <input type="hidden" id="userId" name="userId">
+            
             <div class="space-y-3">
                 <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider border-b pb-1">ข้อมูลผู้เรียน</h3>
-                <div><label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล (ผู้เรียน) <span class="text-red-500">*</span></label><input type="text" id="fullname" required class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div><label class="block text-sm font-medium text-gray-700">ชื่อเล่น <span class="text-red-500">*</span></label><input type="text" id="nickname" required class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></div>
-                    <div><label class="block text-sm font-medium text-gray-700">อายุ</label><input type="number" id="age" class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">ชื่อ-นามสกุล <span class="text-red-500">*</span></label>
+                    <input type="text" id="fullname" required class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]">
                 </div>
-                <div><label class="block text-sm font-medium text-gray-700">ระดับชั้น / มหาวิทยาลัย <span class="text-red-500">*</span></label><input type="text" id="education" required class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">ชื่อเล่น <span class="text-red-500">*</span></label>
+                        <input type="text" id="nickname" required class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">อายุ</label>
+                        <input type="number" id="age" class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">ระดับชั้น / มหาวิทยาลัย <span class="text-red-500">*</span></label>
+                    <input type="text" id="education" required class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]">
+                </div>
             </div>
+
             <div class="space-y-3 pt-2">
                 <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider border-b pb-1">ช่องทางติดต่อ</h3>
-                <div><label class="block text-sm font-medium text-gray-700">Email <span class="text-red-500">*</span></label><input type="email" id="email" required class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></div>
-                <div><label class="block text-sm font-medium text-gray-700">Line ID <span class="text-red-500">*</span></label><input type="text" id="lineId" required class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></div>
-                <div><label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์ (ผู้เรียน) <span class="text-red-500">*</span></label><input type="tel" id="phoneStudent" required class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></div>
-                <div><label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์ (ผู้ปกครอง)</label><input type="tel" id="phoneParent" class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="email" required class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Line ID <span class="text-red-500">*</span></label>
+                    <input type="text" id="lineId" required class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์ (ผู้เรียน) <span class="text-red-500">*</span></label>
+                    <input type="tel" id="phoneStudent" required class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์ (ผู้ปกครอง)</label>
+                    <input type="tel" id="phoneParent" class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]">
+                </div>
             </div>
+
             <div class="space-y-3 pt-2">
                 <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider border-b pb-1">รายละเอียดการเรียน</h3>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">รายวิชาที่ต้องการลง <span class="text-red-500">*</span></label>
-                    <select id="subject" class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 bg-white focus:ring-2 focus:ring-[#8DC63F]">
-                        <option value="Preclinic">Pre-Clinic (แพทย์ปี 1-2)</option>
-                        <option value="NL1">NL1 (Comprehensive)</option>
-                        <option value="NL2">NL2 (Clinical Science)</option>
-                        <option value="NL3_MEQ">NL3 (MEQ)</option>
-                        <option value="NL3_OSCE">NL3 (OSCE)</option>
-                        <option value="Anatomy">Anatomy</option>
-                        <option value="Dental">ทันตกรรม</option>
-                    </select>
+                    <select id="subject" class="w-full border-gray-300 border p-3 rounded-lg mt-1 bg-white focus:outline-none focus:ring-2 focus:ring-[#8DC63F]"></select>
                 </div>
-                <div><label class="block text-sm font-medium text-gray-700">วันเวลาที่สะดวกเรียน</label><textarea id="preferredTime" rows="2" class="w-full border-gray-300 border p-2.5 rounded-lg mt-1 focus:ring-2 focus:ring-[#8DC63F]"></textarea></div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">วันเวลาที่สะดวกเรียน</label>
+                    <textarea id="preferredTime" rows="2" class="w-full border-gray-300 border p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#8DC63F]" placeholder="เช่น สะดวก จันทร์-ศุกร์ หลัง 18.00 น."></textarea>
+                </div>
             </div>
-            <div class="pt-4 pb-8">
-                <button type="submit" id="submitBtn" class="w-full bg-promed text-white font-bold py-4 rounded-xl shadow-lg hover:bg-[#7ab332] transition duration-300 flex justify-center items-center gap-2">
-                    <span>ยืนยันการลงทะเบียน</span><div id="loadingSpinner" class="loader hidden"></div>
+
+            <div class="pt-6">
+                <button type="submit" id="submitBtn" class="w-full bg-promed text-white font-bold py-4 rounded-xl shadow-lg hover:bg-[#7ab332] transition duration-300 flex justify-center items-center gap-2 text-lg">
+                    <span>ยืนยันการลงทะเบียน</span>
+                    <div id="loadingSpinner" class="loader hidden"></div>
+                </button>
+            </div>
+            
+            <div class="text-center pt-4">
+                <button type="button" id="backToInfoBtn" class="text-sm text-gray-500 underline hover:text-gray-700">
+                    ย้อนกลับไปดูรายละเอียดคอร์ส
                 </button>
             </div>
         </form>
@@ -304,88 +187,215 @@
 
     <script>
         // ==========================================
-        // ⚙️ CONFIG
+        // ⚙️ CONFIGURATION (ส่วนที่คุณต้องแก้ไข)
         // ==========================================
+        
+        // 1. LIFF ID
         const LIFF_ID = '2009152707-JaNVAeT8'; 
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbzSg5RpBoQ4xVTZfj5S9a0KvoJegrO279k3nmjXClsRG3KL1HO9ZtWmAmH8Bx1B2bi4/exec';
+        
+        // 2. 🔴 สำคัญมาก: วาง Web App URL อันใหม่ล่าสุดตรงนี้
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxAKO3-Qa3pgcXn45pYn1p_ghBiG3iXxv8ym-oW1XYLe47TYuR4lbJqkGRvkgrtHV7R/exec'; // <--- แทนที่ด้วย URL ของคุณ
+        
+        // 3. Logo ID
         const LOGO_FILE_ID = '1F3_t5Tk8WfdHu1domWwrEg6JTShR5dmp'; 
 
         // ==========================================
-        // 🏗️ LOGIC
+        // 🏗️ GLOBALS & INIT
         // ==========================================
-        const pdpaModal = document.getElementById('pdpaModal');
-        const courseInfoPage = document.getElementById('courseInfoPage');
-        const regisFormPage = document.getElementById('regisFormPage');
-        
-        // 1. PDPA Logic
-        document.getElementById('pdpaCheckbox').addEventListener('change', function() {
-            const btn = document.getElementById('pdpaBtn');
-            if (this.checked) {
-                btn.disabled = false;
-                btn.classList.remove('bg-gray-300', 'cursor-not-allowed');
-                btn.classList.add('bg-promed', 'hover:bg-[#7ab332]', 'shadow-lg');
-            } else {
-                btn.disabled = true;
-                btn.classList.add('bg-gray-300', 'cursor-not-allowed');
-                btn.classList.remove('bg-promed', 'hover:bg-[#7ab332]', 'shadow-lg');
-            }
-        });
+        let allCourses = [];
+        let uniqueCategories = [];
 
-        document.getElementById('pdpaBtn').addEventListener('click', function() {
-            pdpaModal.classList.add('hidden');
-            courseInfoPage.classList.remove('hidden'); // Show Course Info first
-            window.scrollTo(0, 0);
-        });
-
-        // 2. Tab Switching Logic
-        window.switchTab = function(tabName) {
-            ['Preclinic', 'NL1', 'NL2', 'MEQ'].forEach(t => {
-                document.getElementById(`content-${t}`).classList.add('hidden');
-                document.getElementById(`tab-${t}`).classList.remove('tab-active', 'bg-white');
-                document.getElementById(`tab-${t}`).classList.add('tab-inactive');
-            });
-            document.getElementById(`content-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-${tabName}`).classList.add('tab-active', 'bg-white');
-            document.getElementById(`tab-${tabName}`).classList.remove('tab-inactive');
-        }
-
-        // 3. Navigate to Form
-        document.getElementById('goToRegisterBtn').addEventListener('click', function() {
-            courseInfoPage.classList.add('hidden');
-            regisFormPage.classList.remove('hidden');
-            window.scrollTo(0, 0);
-        });
-
-        // 4. Logo Logic
-        function setLogo() {
-            if(LOGO_FILE_ID) {
-                const url = `https://drive.google.com/thumbnail?id=${LOGO_FILE_ID}&sz=w1000`;
-                document.getElementById('logoImgInfo').src = url;
-                document.getElementById('logoImgForm').src = url;
-            }
-        }
-
-        // 5. LIFF Init
         async function main() {
             setLogo();
+            // ดึงข้อมูลคอร์สเรียนขึ้นมาก่อนเลย
+            await fetchCourses();
+            
+            // เตรียม LIFF
             try {
                 await liff.init({ liffId: LIFF_ID });
                 if (liff.isLoggedIn()) {
                     const profile = await liff.getProfile();
                     document.getElementById('userId').value = profile.userId;
+                    // Auto-fill ชื่อไลน์ (อ่านอย่างเดียว)
                     document.getElementById('lineId').value = profile.displayName;
-                } else { liff.login(); }
-            } catch (err) { console.error("LIFF Error:", err); }
+                } else { 
+                    liff.login(); 
+                }
+            } catch (err) { 
+                console.error("LIFF Error:", err); 
+            }
         }
         main();
 
-        // 6. Form Submit
+        // ==========================================
+        // 🌐 FETCH DATA & RENDER UI
+        // ==========================================
+        async function fetchCourses() {
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'fetch_courses' })
+                });
+                const json = await response.json();
+                
+                if(json.status === 'success' && json.data.length > 0) {
+                    allCourses = json.data;
+                    renderUI();
+                } else {
+                    showErrorUI("ยังไม่มีข้อมูลคอร์สเรียนในระบบ");
+                }
+            } catch (e) {
+                console.error("Fetch Error", e);
+                showErrorUI("ไม่สามารถโหลดข้อมูลคอร์สได้ กรุณาลองใหม่");
+            }
+        }
+
+        function showErrorUI(msg) {
+            document.getElementById('contentContainer').innerHTML = `<div class="p-4 text-center text-red-500 font-semibold bg-red-50 rounded-lg border border-red-200 mt-4">${msg}</div>`;
+        }
+
+        function renderUI() {
+            // 1. แยกหมวดหมู่คอร์สแบบไม่ซ้ำ
+            const cats = [...new Set(allCourses.map(c => c.category))];
+            uniqueCategories = cats;
+
+            // 2. สร้างปุ่ม Tabs
+            const tabsHtml = cats.map((cat, index) => 
+                `<button onclick="switchTab('${cat}')" id="tab-${cat}" class="flex-1 min-w-[90px] py-4 text-center text-sm font-semibold whitespace-nowrap transition ${index===0 ? 'tab-active bg-white' : 'tab-inactive hover:bg-white'}">${cat}</button>`
+            ).join('');
+            document.getElementById('tabsContainer').innerHTML = tabsHtml;
+
+            // 3. แสดงเนื้อหา Tab แรก
+            if (cats.length > 0) {
+                renderContent(cats[0]);
+            }
+
+            // 4. สร้าง Dropdown ตัวเลือกคอร์สในฟอร์ม
+            const optionsHtml = allCourses.map(c => 
+                `<option value="${c.id}">${c.dropdownName}</option>`
+            ).join('');
+            document.getElementById('subject').innerHTML = optionsHtml;
+        }
+
+        window.switchTab = function(category) {
+            // สลับ Class ของปุ่ม Tabs
+            uniqueCategories.forEach(c => {
+                const btn = document.getElementById(`tab-${c}`);
+                if(c === category) {
+                    btn.classList.add('tab-active', 'bg-white');
+                    btn.classList.remove('tab-inactive');
+                } else {
+                    btn.classList.remove('tab-active', 'bg-white');
+                    btn.classList.add('tab-inactive');
+                }
+            });
+            // อัปเดตเนื้อหา
+            renderContent(category);
+        }
+
+        function renderContent(category) {
+            const courses = allCourses.filter(c => c.category === category);
+            let html = '';
+            
+            // หัวข้อสีตาม Category (ลูกเล่นเสริมความสวยงาม)
+            let headerColor = 'bg-gray-100 text-gray-800 border-gray-200';
+            let icon = '📘';
+            
+            if(category.toLowerCase().includes('pre')) { headerColor = 'bg-teal-50 text-teal-800 border-teal-200'; icon = '🧬'; }
+            else if(category.includes('NL1')) { headerColor = 'bg-blue-50 text-blue-800 border-blue-200'; icon = '🎓'; }
+            else if(category.includes('NL2')) { headerColor = 'bg-green-50 text-green-800 border-green-200'; icon = '🏥'; }
+            else if(category.includes('MEQ')) { headerColor = 'bg-purple-50 text-purple-800 border-purple-200'; icon = '✍️'; }
+            
+            html += `<div class="${headerColor} p-3 rounded-lg text-sm mb-4 border font-medium shadow-sm">${icon} หมวดหมู่: <b>${category}</b></div>`;
+
+            courses.forEach(c => {
+                const formatter = new Intl.NumberFormat('th-TH');
+                
+                // เช็คว่าลดราคาไหม
+                const isDiscount = c.fullPrice && parseFloat(c.fullPrice) > parseFloat(c.price);
+                
+                // ตกแต่งบัตรคอร์ส (ถ้ามีคำว่า รับรองผล หรือ ไฟ ให้ดูเด่นขึ้น)
+                let cardStyle = "border-gray-200 bg-white";
+                if(c.title.includes('🔥')) cardStyle = "border-orange-300 ring-1 ring-orange-100 bg-orange-50/30";
+                if(c.title.includes('👑')) cardStyle = "border-yellow-400 bg-gradient-to-r from-yellow-50 to-white shadow-md";
+
+                html += `
+                <div class="border rounded-xl p-4 shadow-sm hover:shadow-md transition mb-3 ${cardStyle} animate-fade-in">
+                    <div class="flex justify-between items-start gap-2">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg text-gray-800 leading-tight">${c.title}</h3>
+                            <div class="text-sm text-gray-600 mt-2 space-y-1">${c.detail}</div>
+                        </div>
+                        <div class="text-right min-w-[85px] shrink-0">
+                            <div class="text-xl font-bold text-promed">${formatter.format(c.price)}฿</div>
+                            ${isDiscount ? `<div class="price-strike">${formatter.format(c.fullPrice)}฿</div>` : ''}
+                        </div>
+                    </div>
+                </div>`;
+            });
+            
+            document.getElementById('contentContainer').innerHTML = html;
+        }
+
+        // ==========================================
+        // 🖱️ USER INTERACTION LOGIC
+        // ==========================================
+        
+        // เซ็ตรูปโลโก้
+        function setLogo() { 
+            if(LOGO_FILE_ID) { 
+                const url = `https://drive.google.com/thumbnail?id=${LOGO_FILE_ID}&sz=w1000`; 
+                document.getElementById('logoImgInfo').src = url; 
+                document.getElementById('logoImgForm').src = url; 
+            } 
+        }
+
+        // PDPA
+        document.getElementById('pdpaCheckbox').addEventListener('change', function() { 
+            const btn = document.getElementById('pdpaBtn'); 
+            if (this.checked) { 
+                btn.disabled = false; 
+                btn.classList.remove('bg-gray-300', 'cursor-not-allowed'); 
+                btn.classList.add('bg-promed', 'hover:bg-[#7ab332]', 'shadow-lg'); 
+            } else { 
+                btn.disabled = true; 
+                btn.classList.add('bg-gray-300', 'cursor-not-allowed'); 
+                btn.classList.remove('bg-promed', 'hover:bg-[#7ab332]', 'shadow-lg'); 
+            } 
+        });
+
+        document.getElementById('pdpaBtn').addEventListener('click', function() { 
+            document.getElementById('pdpaModal').classList.add('hidden'); 
+            document.getElementById('courseInfoPage').classList.remove('hidden'); 
+            window.scrollTo(0, 0); 
+        });
+
+        // Navigation
+        document.getElementById('goToRegisterBtn').addEventListener('click', function() { 
+            document.getElementById('courseInfoPage').classList.add('hidden'); 
+            document.getElementById('regisFormPage').classList.remove('hidden'); 
+            window.scrollTo(0, 0); 
+        });
+
+        document.getElementById('backToInfoBtn').addEventListener('click', function() {
+            document.getElementById('regisFormPage').classList.add('hidden'); 
+            document.getElementById('courseInfoPage').classList.remove('hidden'); 
+            window.scrollTo(0, 0); 
+        });
+        
+        // ==========================================
+        // 📤 SUBMIT FORM
+        // ==========================================
         document.getElementById('regisForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             const spinner = document.getElementById('loadingSpinner');
             const btnText = btn.querySelector('span');
-            btn.disabled = true; btnText.innerText = 'กำลังบันทึก...'; spinner.classList.remove('hidden');
+            
+            // ล็อคปุ่ม
+            btn.disabled = true; 
+            btnText.innerText = 'กำลังบันทึกข้อมูล...'; 
+            spinner.classList.remove('hidden');
 
             const formData = {
                 userId: document.getElementById('userId').value,
@@ -403,12 +413,30 @@
             };
 
             try {
-                await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(formData), mode: 'no-cors' });
-                Swal.fire({ title: 'ลงทะเบียนสำเร็จ!', text: 'ระบบกำลังส่งใบเสนอราคาให้ทางไลน์ครับ', icon: 'success', confirmButtonColor: '#8DC63F' }).then(() => { liff.closeWindow(); });
+                // ส่งข้อมูลไปหลังบ้าน
+                await fetch(GAS_URL, { 
+                    method: 'POST', 
+                    body: JSON.stringify(formData), 
+                    mode: 'no-cors' 
+                });
+                
+                // แจ้งเตือนสำเร็จ
+                Swal.fire({ 
+                    title: 'ลงทะเบียนสำเร็จ!', 
+                    text: 'ระบบกำลังจัดทำและส่งใบเสนอราคาให้ทางแชทไลน์ครับ', 
+                    icon: 'success', 
+                    confirmButtonColor: '#8DC63F',
+                    confirmButtonText: 'ปิดหน้าต่างนี้'
+                }).then(() => { 
+                    liff.closeWindow(); 
+                });
+
             } catch (err) {
                 console.error(err);
-                Swal.fire('เกิดข้อผิดพลาด', 'กรุณาลองใหม่อีกครั้ง', 'error');
-                btn.disabled = false; btnText.innerText = 'ยืนยันการลงทะเบียน'; spinner.classList.add('hidden');
+                Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถส่งข้อมูลได้ กรุณาลองใหม่อีกครั้ง', 'error');
+                btn.disabled = false; 
+                btnText.innerText = 'ยืนยันการลงทะเบียน'; 
+                spinner.classList.add('hidden');
             }
         });
     </script>
